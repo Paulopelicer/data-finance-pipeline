@@ -1,0 +1,52 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Apresentacao: validar pipeline Pix",
+      "type": "shell",
+      "command": "${workspaceFolder}/../.venv/bin/python",
+      "args": [
+        "${workspaceFolder}/scripts/presentation_demo.py"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "MPLCONFIGDIR": "/tmp/matplotlib"
+        }
+      },
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Pipeline: limpar e recriar tudo",
+      "type": "shell",
+      "command": "${workspaceFolder}/../.venv/bin/python",
+      "args": [
+        "${workspaceFolder}/scripts/rebuild_pipeline.py"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}",
+        "env": {
+          "MPLCONFIGDIR": "/tmp/matplotlib"
+        }
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Backup: restaurar data e graficos",
+      "type": "shell",
+      "command": "tar",
+      "args": [
+        "-xzf",
+        "${workspaceFolder}/presentation_backup/pix_pipeline_outputs_2026-06-30.tar.gz"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    }
+  ]
+}

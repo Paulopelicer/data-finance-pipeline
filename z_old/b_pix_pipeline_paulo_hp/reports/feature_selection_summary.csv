@@ -1,0 +1,13 @@
+feature,status,criterio
+mes_numero,selecionada,Feature temporal ou estatística derivada sem identificar diretamente o mês alvo.
+trimestre,selecionada,Feature temporal ou estatística derivada sem identificar diretamente o mês alvo.
+valor_total_lag_1,selecionada,Feature temporal ou estatística derivada sem identificar diretamente o mês alvo.
+quantidade_transacoes_lag_1,selecionada,Feature temporal ou estatística derivada sem identificar diretamente o mês alvo.
+ticket_medio_lag_1,selecionada,Feature temporal ou estatística derivada sem identificar diretamente o mês alvo.
+crescimento_valor_lag_1,selecionada,Feature temporal ou estatística derivada sem identificar diretamente o mês alvo.
+crescimento_qtd_lag_1,selecionada,Feature temporal ou estatística derivada sem identificar diretamente o mês alvo.
+valor_total_mm3,selecionada,Feature temporal ou estatística derivada sem identificar diretamente o mês alvo.
+quantidade_transacoes_mm3,selecionada,Feature temporal ou estatística derivada sem identificar diretamente o mês alvo.
+ticket_medio_mm3,selecionada,Feature temporal ou estatística derivada sem identificar diretamente o mês alvo.
+flag_crescimento_valor,selecionada,Feature temporal ou estatística derivada sem identificar diretamente o mês alvo.
+flag_crescimento_qtd,selecionada,Feature temporal ou estatística derivada sem identificar diretamente o mês alvo.

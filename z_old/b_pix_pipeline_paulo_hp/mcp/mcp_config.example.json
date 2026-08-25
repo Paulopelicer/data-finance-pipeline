@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "pix-csv-mcp": {
+      "command": "python",
+      "args": ["mcp/csv_mcp_server.py"]
+    }
+  }
+}
+

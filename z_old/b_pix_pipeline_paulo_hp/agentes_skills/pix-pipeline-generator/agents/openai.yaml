@@ -1,0 +1,6 @@
+interface:
+  display_name: "Pix Pipeline Generator"
+  short_description: "Gerar pipelines Pix com PySpark."
+  default_prompt: "Use $pix-pipeline-generator para criar um pipeline completo de Engenharia de Dados do Pix com PySpark."
+policy:
+  allow_implicit_invocation: true

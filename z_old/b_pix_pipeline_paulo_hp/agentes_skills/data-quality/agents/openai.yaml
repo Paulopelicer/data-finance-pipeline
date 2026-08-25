@@ -1,0 +1,3 @@
+display_name: "Data Quality"
+short_description: "Validação técnica e qualidade de dados."
+default_prompt: "Use a skill data-quality para criar ou revisar checks de schema, nulos, ranges, contagens, duplicidades, outputs e critérios de aceite de dados."

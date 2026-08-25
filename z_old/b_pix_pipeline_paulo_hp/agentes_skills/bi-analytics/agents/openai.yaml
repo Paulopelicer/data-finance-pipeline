@@ -1,0 +1,3 @@
+display_name: "BI Analytics"
+short_description: "KPIs, camada Gold e storytelling analítico."
+default_prompt: "Use a skill bi-analytics para definir KPIs, métricas, camada Gold, leitura executiva, storytelling de dados e documentação funcional para BI."

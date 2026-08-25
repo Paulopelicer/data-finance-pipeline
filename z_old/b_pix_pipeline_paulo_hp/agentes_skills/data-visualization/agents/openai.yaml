@@ -1,0 +1,3 @@
+display_name: "Data Visualization"
+short_description: "Gráficos formais para análise e apresentação."
+default_prompt: "Use a skill data-visualization para criar ou melhorar gráficos analíticos com títulos, eixos, unidades, formatação monetária, fonte, anotações e boa leitura para apresentação."

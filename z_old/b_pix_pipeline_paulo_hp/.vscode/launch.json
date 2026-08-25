@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    
+    {
+      "name": "Apresentacao: pipeline Pix",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/presentation_demo.py",
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "MPLCONFIGDIR": "/tmp/matplotlib"
+      }
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+display_name: "PySpark Pipeline"
+short_description: "Padrões práticos para pipelines PySpark."
+default_prompt: "Use a skill pyspark-pipeline para implementar ou revisar pipelines Spark locais, notebooks PySpark, Parquet, Window Functions e validações de execução."
