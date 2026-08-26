@@ -1,0 +1,15 @@
+name: pix-pipeline-generator
+description: Skill especifica para pipeline Pix com PySpark, Analytics, ML educacional, validacoes e MCP CSV.
+version: 1.0.0
+language: pt-BR
+domain:
+  - pix
+  - data-engineering
+capabilities:
+  - pipeline-generation
+  - validation
+  - documentation
+constraints:
+  - no_emojis
+  - no_hardcoded_local_paths
+  - no_credentials

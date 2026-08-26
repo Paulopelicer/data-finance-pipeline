@@ -1,0 +1,15 @@
+name: feature-engineering
+description: Skill agnostica para Feature Engineering em projetos de dados.
+version: 1.0.0
+language: pt-BR
+domain:
+  - data
+  - analytics
+capabilities:
+  - guidance
+  - validation
+  - documentation
+constraints:
+  - no_emojis
+  - no_hardcoded_local_paths
+  - no_credentials
