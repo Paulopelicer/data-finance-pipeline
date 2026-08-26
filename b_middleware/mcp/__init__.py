@@ -1,0 +1,1 @@
+"""MCP CSV read-only."""

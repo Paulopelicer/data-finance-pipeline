@@ -1,0 +1,1 @@
+"""Orquestracao local dos pipelines."""

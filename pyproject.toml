@@ -1,0 +1,15 @@
+[project]
+name = "stf_pss_ms_data_finance_pipeline"
+version = "0.1.0"
+description = "Pipeline financeiro consolidado com modulos B3 e Pix em arquitetura Bronze, Silver e Gold."
+requires-python = ">=3.11"
+readme = "README.md"
+license = {text = "MIT"}
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["d_test"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
