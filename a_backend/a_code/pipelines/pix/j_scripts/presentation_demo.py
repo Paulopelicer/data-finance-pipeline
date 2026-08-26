@@ -6,7 +6,7 @@ import sys
 PROJECT_DIR = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_DIR))
 
-from src.config import (  # noqa: E402
+from a_configs.config import (  # noqa: E402
     FIGURES_DIR,
     PIX_CLEAN_DIR,
     PIX_FEE_SAVINGS_DIR,
@@ -14,7 +14,7 @@ from src.config import (  # noqa: E402
     PIX_RAW_DIR,
     PIX_TRANSFER_SAVINGS_DIR,
 )
-from src.spark_session import get_spark_session  # noqa: E402
+from a_configs.spark_session import get_spark_session  # noqa: E402
 
 
 def print_section(title: str) -> None:

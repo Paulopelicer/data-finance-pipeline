@@ -9,7 +9,7 @@ from typing import Any
 import pandas as pd
 
 PROJECT_DIR = Path(__file__).resolve().parents[2]
-REPORTS_DIR = PROJECT_DIR / "reports"
+REPORTS_DIR = PROJECT_DIR / "m_reports"
 METRICS_FILES = [
     "business_metrics_summary.csv",
     "classification_metrics.csv",
@@ -29,12 +29,18 @@ def _safe_csv_path(file_name: str | Path) -> Path:
     if raw.suffix.lower() != ".csv":
         raise ValueError("Somente arquivos .csv sao permitidos.")
 
-    candidate = (PROJECT_DIR / raw).resolve() if raw.parts and raw.parts[0] == "reports" else (REPORTS_DIR / raw).resolve()
+    candidate = (
+        (PROJECT_DIR / raw).resolve()
+        if raw.parts and raw.parts[0] == "reports"
+        else (REPORTS_DIR / raw).resolve()
+    )
     reports_root = REPORTS_DIR.resolve()
     if not candidate.is_relative_to(reports_root):
         raise ValueError("Leitura fora da pasta reports nao e permitida.")
     if not candidate.exists():
-        raise FileNotFoundError(f"Arquivo CSV nao encontrado: {candidate.relative_to(PROJECT_DIR)}")
+        raise FileNotFoundError(
+            f"Arquivo CSV nao encontrado: {candidate.relative_to(PROJECT_DIR)}"
+        )
     return candidate
 
 
@@ -91,14 +97,20 @@ def csv_describe_file(file_name: str) -> dict[str, Any]:
         "column_count": int(len(frame.columns)),
         "columns": list(frame.columns),
         "dtypes": {column: str(dtype) for column, dtype in frame.dtypes.items()},
-        "numeric_summary": numeric.describe().fillna("").to_dict() if not numeric.empty else {},
+        "numeric_summary": (
+            numeric.describe().fillna("").to_dict() if not numeric.empty else {}
+        ),
     }
 
 
 def csv_validate_columns(file_name: str, columns: list[str] | str) -> dict[str, Any]:
     """Valida se um CSV contem as colunas esperadas."""
     path = _safe_csv_path(file_name)
-    expected = [item.strip() for item in columns.split(",")] if isinstance(columns, str) else list(columns)
+    expected = (
+        [item.strip() for item in columns.split(",")]
+        if isinstance(columns, str)
+        else list(columns)
+    )
     expected_set = set(expected)
     found = list(pd.read_csv(path, nrows=0).columns)
     found_set = set(found)
@@ -153,7 +165,13 @@ def csv_search_value(query: str, max_results: int = 20) -> dict[str, Any]:
             for line_number, row in enumerate(reader, start=1):
                 text = " | ".join(row)
                 if term in text.lower():
-                    results.append({"file": _relative(path), "line": line_number, "text": text[:500]})
+                    results.append(
+                        {
+                            "file": _relative(path),
+                            "line": line_number,
+                            "text": text[:500],
+                        }
+                    )
                     if len(results) >= limit:
                         return {"query": query, "results": results, "truncated": True}
     return {"query": query, "results": results, "truncated": False}
@@ -162,7 +180,11 @@ def csv_search_value(query: str, max_results: int = 20) -> dict[str, Any]:
 def csv_compare_metrics_files() -> dict[str, Any]:
     """Compara arquivos de metricas e consolida dimensoes basicas."""
     comparison = []
-    for file_name in ["regression_metrics.csv", "classification_metrics.csv", "model_metrics_summary.csv"]:
+    for file_name in [
+        "regression_metrics.csv",
+        "classification_metrics.csv",
+        "model_metrics_summary.csv",
+    ]:
         path = REPORTS_DIR / file_name
         if not path.exists():
             comparison.append({"file": file_name, "exists": False})
@@ -189,4 +211,3 @@ TOOLS = {
     "csv_search_value": csv_search_value,
     "csv_compare_metrics_files": csv_compare_metrics_files,
 }
-

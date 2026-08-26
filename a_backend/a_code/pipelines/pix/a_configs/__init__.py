@@ -1,5 +1,5 @@
 """
-Módulo __init__.py para o pacote src.
+Módulo __init__.py para o pacote a_configs.
 """
 
 __version__ = "1.0.0"

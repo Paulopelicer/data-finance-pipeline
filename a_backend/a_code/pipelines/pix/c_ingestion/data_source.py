@@ -11,7 +11,7 @@ from typing import Iterable
 import pandas as pd
 import requests
 
-from src.config import INPUT_DIR
+from a_configs.config import INPUT_DIR
 
 BCB_PIX_TRANSACTIONS_URL = (
     "https://olinda.bcb.gov.br/olinda/servico/Pix_DadosAbertos/versao/v1/odata/"
@@ -42,7 +42,6 @@ def _validate_pix_dataframe(df: pd.DataFrame, source_reference: str) -> None:
         )
 
 
-
 def _apply_sample_limit(df: pd.DataFrame) -> pd.DataFrame:
     rows = os.environ.get("PIX_SAMPLE_ROWS")
     if not rows:
@@ -56,12 +55,15 @@ def _apply_sample_limit(df: pd.DataFrame) -> pd.DataFrame:
         return df.head(limit)
     return df
 
+
 def fetch_bcb_pix_transactions(timeout: int = 120, attempts: int = 3) -> SourceResult:
     """Baixa dados reais publicos de transacoes Pix pelo OData do Banco Central."""
     last_error: Exception | None = None
     for attempt in range(1, attempts + 1):
         try:
-            print(f"Tentativa {attempt}/{attempts} de leitura da fonte publica do Banco Central.")
+            print(
+                f"Tentativa {attempt}/{attempts} de leitura da fonte publica do Banco Central."
+            )
             response = requests.get(BCB_PIX_TRANSACTIONS_URL, timeout=timeout)
             response.raise_for_status()
             break

@@ -9,14 +9,14 @@ import sys
 from pathlib import Path
 
 PROJECT_DIR = Path(__file__).resolve().parents[1]
-MCP_DIR = PROJECT_DIR / "mcp"
+MCP_DIR = PROJECT_DIR / "h_mcp"
 REQUIRED_FILES = [
-    "mcp/README.md",
-    "mcp/CODEX_MCP_SETUP.md",
-    "mcp/csv_mcp_server.py",
-    "mcp/mcp_config.example.json",
-    "mcp/tools/__init__.py",
-    "mcp/tools/csv_tools.py",
+    "h_mcp/README.md",
+    "h_mcp/CODEX_MCP_SETUP.md",
+    "h_mcp/csv_mcp_server.py",
+    "h_mcp/mcp_config.example.json",
+    "h_mcp/tools/__init__.py",
+    "h_mcp/tools/csv_tools.py",
 ]
 EXPECTED_TOOLS = [
     "csv_compare_metrics_files",
@@ -27,11 +27,21 @@ EXPECTED_TOOLS = [
     "csv_search_value",
     "csv_validate_columns",
 ]
-EMOJI_RE = re.compile("[" "\\U0001F300-\\U0001FAFF" "\\U00002700-\\U000027BF" "\\U00002600-\\U000026FF" "]")
-LOCAL_PATH_RE = re.compile(r"/home/|/mnt/" + "c/Users/" + r"|[A-Za-z]:\\", re.IGNORECASE)
+EMOJI_RE = re.compile(
+    "["
+    "\\U0001F300-\\U0001FAFF"
+    "\\U00002700-\\U000027BF"
+    "\\U00002600-\\U000026FF"
+    "]"
+)
+LOCAL_PATH_RE = re.compile(
+    r"/home/|/mnt/" + "c/Users/" + r"|[A-Za-z]:\\", re.IGNORECASE
+)
 
 
-def run_command(args: list[str], input_text: str | None = None, timeout: int = 30) -> tuple[int, str, str]:
+def run_command(
+    args: list[str], input_text: str | None = None, timeout: int = 30
+) -> tuple[int, str, str]:
     result = subprocess.run(
         args,
         cwd=PROJECT_DIR,
@@ -56,14 +66,24 @@ def ok(message: str) -> None:
 def validate_structure(errors: list[str]) -> None:
     for item in REQUIRED_FILES:
         path = PROJECT_DIR / item
-        ok(f"arquivo encontrado: {item}") if path.exists() else fail(errors, f"arquivo ausente: {item}")
+        (
+            ok(f"arquivo encontrado: {item}")
+            if path.exists()
+            else fail(errors, f"arquivo ausente: {item}")
+        )
     forbidden = ["spark", "powerbi", "delta", "brain"]
     if MCP_DIR.exists():
         for path in MCP_DIR.rglob("*"):
             if "__pycache__" in path.parts:
                 continue
-            if path.is_file() and path.name != "README.md" and any(term in str(path).lower() for term in forbidden):
-                fail(errors, f"MCP proibido encontrado: {path.relative_to(PROJECT_DIR)}")
+            if (
+                path.is_file()
+                and path.name != "README.md"
+                and any(term in str(path).lower() for term in forbidden)
+            ):
+                fail(
+                    errors, f"MCP proibido encontrado: {path.relative_to(PROJECT_DIR)}"
+                )
 
 
 def validate_text(errors: list[str]) -> None:
@@ -82,9 +102,14 @@ def validate_text(errors: list[str]) -> None:
 
 def validate_cli(errors: list[str]) -> None:
     commands = [
-        [sys.executable, "mcp/csv_mcp_server.py", "--list-tools"],
-        [sys.executable, "mcp/csv_mcp_server.py", "--tool", "csv_list_reports"],
-        [sys.executable, "mcp/csv_mcp_server.py", "--tool", "csv_get_metrics_summary"],
+        [sys.executable, "h_mcp/csv_mcp_server.py", "--list-tools"],
+        [sys.executable, "h_mcp/csv_mcp_server.py", "--tool", "csv_list_reports"],
+        [
+            sys.executable,
+            "h_mcp/csv_mcp_server.py",
+            "--tool",
+            "csv_get_metrics_summary",
+        ],
     ]
     for command in commands:
         code, stdout, stderr = run_command(command)
@@ -105,12 +130,25 @@ def validate_cli(errors: list[str]) -> None:
             else:
                 ok("todas as ferramentas esperadas aparecem no CLI")
 
-    reports = PROJECT_DIR / "reports"
+    reports = PROJECT_DIR / "m_reports"
     csv_files = sorted(reports.glob("*.csv")) if reports.exists() else []
     if csv_files:
-        target = f"reports/{csv_files[0].name}"
-        code, _stdout, stderr = run_command([sys.executable, "mcp/csv_mcp_server.py", "--tool", "csv_preview_file", "--file", target])
-        ok(f"preview valido: {target}") if code == 0 else fail(errors, f"preview falhou: {stderr.strip()}")
+        target = f"m_reports/{csv_files[0].name}"
+        code, _stdout, stderr = run_command(
+            [
+                sys.executable,
+                "h_mcp/csv_mcp_server.py",
+                "--tool",
+                "csv_preview_file",
+                "--file",
+                target,
+            ]
+        )
+        (
+            ok(f"preview valido: {target}")
+            if code == 0
+            else fail(errors, f"preview falhou: {stderr.strip()}")
+        )
 
 
 def validate_native_mcp_stdio(errors: list[str]) -> None:
@@ -127,10 +165,19 @@ def validate_native_mcp_stdio(errors: list[str]) -> None:
         },
         {"jsonrpc": "2.0", "method": "notifications/initialized", "params": {}},
         {"jsonrpc": "2.0", "id": 2, "method": "tools/list", "params": {}},
-        {"jsonrpc": "2.0", "id": 3, "method": "tools/call", "params": {"name": "csv_list_reports", "arguments": {}}},
+        {
+            "jsonrpc": "2.0",
+            "id": 3,
+            "method": "tools/call",
+            "params": {"name": "csv_list_reports", "arguments": {}},
+        },
     ]
     payload = "\n".join(json.dumps(message) for message in messages) + "\n"
-    code, stdout, stderr = run_command([sys.executable, "mcp/csv_mcp_server.py", "--mcp-stdio"], input_text=payload, timeout=20)
+    code, stdout, stderr = run_command(
+        [sys.executable, "h_mcp/csv_mcp_server.py", "--mcp-stdio"],
+        input_text=payload,
+        timeout=20,
+    )
     if code != 0:
         fail(errors, f"MCP stdio falhou: {stderr.strip()}")
         return
@@ -144,7 +191,9 @@ def validate_native_mcp_stdio(errors: list[str]) -> None:
         if expected_id not in by_id:
             fail(errors, f"resposta MCP stdio ausente para id {expected_id}")
     if 2 in by_id:
-        tools = [tool.get("name") for tool in by_id[2].get("result", {}).get("tools", [])]
+        tools = [
+            tool.get("name") for tool in by_id[2].get("result", {}).get("tools", [])
+        ]
         missing = sorted(set(EXPECTED_TOOLS) - set(tools))
         if missing:
             fail(errors, f"ferramentas ausentes no MCP stdio: {missing}")
@@ -157,7 +206,13 @@ def validate_native_mcp_stdio(errors: list[str]) -> None:
 
 
 def validate_import(errors: list[str]) -> None:
-    code, stdout, stderr = run_command([sys.executable, "-c", "from mcp.csv_mcp_server import handle_mcp_message, tool_list_payload; print(len(tool_list_payload()))"])
+    code, stdout, stderr = run_command(
+        [
+            sys.executable,
+            "-c",
+            "from h_mcp.csv_mcp_server import handle_mcp_message, tool_list_payload; print(len(tool_list_payload()))",
+        ]
+    )
     if code != 0:
         fail(errors, f"import do servidor MCP falhou: {stderr.strip()}")
         return
@@ -166,17 +221,39 @@ def validate_import(errors: list[str]) -> None:
     except ValueError:
         fail(errors, f"import retornou saida inesperada: {stdout.strip()}")
         return
-    ok("import do servidor MCP valido") if count == len(EXPECTED_TOOLS) else fail(errors, "quantidade inesperada de ferramentas no import")
+    (
+        ok("import do servidor MCP valido")
+        if count == len(EXPECTED_TOOLS)
+        else fail(errors, "quantidade inesperada de ferramentas no import")
+    )
 
 
 def validate_security(errors: list[str]) -> None:
     unsafe_commands = [
-        [sys.executable, "mcp/csv_mcp_server.py", "--tool", "csv_preview_file", "--file", "../README.md"],
-        [sys.executable, "mcp/csv_mcp_server.py", "--tool", "csv_preview_file", "--file", "README.md"],
+        [
+            sys.executable,
+            "h_mcp/csv_mcp_server.py",
+            "--tool",
+            "csv_preview_file",
+            "--file",
+            "../README.md",
+        ],
+        [
+            sys.executable,
+            "h_mcp/csv_mcp_server.py",
+            "--tool",
+            "csv_preview_file",
+            "--file",
+            "README.md",
+        ],
     ]
     for command in unsafe_commands:
         code, _stdout, _stderr = run_command(command)
-        ok(f"bloqueio de caminho inseguro validado: {command[-1]}") if code != 0 else fail(errors, f"caminho inseguro aceito: {command[-1]}")
+        (
+            ok(f"bloqueio de caminho inseguro validado: {command[-1]}")
+            if code != 0
+            else fail(errors, f"caminho inseguro aceito: {command[-1]}")
+        )
 
 
 def main() -> int:

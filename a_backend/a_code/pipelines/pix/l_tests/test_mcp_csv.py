@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from mcp.tools.csv_tools import (
+from h_mcp.tools.csv_tools import (
     csv_describe_file,
     csv_list_reports,
     csv_preview_file,
@@ -36,4 +36,3 @@ def test_csv_describe_and_validate_columns_when_report_exists():
     columns = description["columns"]
     result = csv_validate_columns(file_name, columns[:1])
     assert result["valid"] is True
-

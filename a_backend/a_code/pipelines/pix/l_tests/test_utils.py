@@ -1,5 +1,5 @@
 from pathlib import Path
-from src.utils import remove_path
+from a_configs.utils import remove_path
 
 
 def test_remove_path_file(tmp_path):

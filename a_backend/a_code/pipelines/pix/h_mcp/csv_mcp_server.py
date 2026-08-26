@@ -12,22 +12,33 @@ PROJECT_DIR = Path(__file__).resolve().parents[1]
 if str(PROJECT_DIR) not in sys.path:
     sys.path.insert(0, str(PROJECT_DIR))
 
-from mcp.tools.csv_tools import TOOLS
+from h_mcp.tools.csv_tools import TOOLS
 
 PROTOCOL_VERSION = "2024-11-05"
 
 TOOL_DEFINITIONS: dict[str, dict[str, Any]] = {
     "csv_list_reports": {
         "description": "Lista arquivos CSV disponiveis em reports/.",
-        "inputSchema": {"type": "object", "properties": {}, "additionalProperties": False},
+        "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": False,
+        },
     },
     "csv_preview_file": {
         "description": "Retorna as primeiras linhas de um CSV seguro em reports/.",
         "inputSchema": {
             "type": "object",
             "properties": {
-                "file": {"type": "string", "description": "Arquivo CSV relativo em reports/."},
-                "rows": {"type": "integer", "description": "Quantidade de linhas, limitada pelo servidor.", "default": 5},
+                "file": {
+                    "type": "string",
+                    "description": "Arquivo CSV relativo em reports/.",
+                },
+                "rows": {
+                    "type": "integer",
+                    "description": "Quantidade de linhas, limitada pelo servidor.",
+                    "default": 5,
+                },
             },
             "required": ["file"],
             "additionalProperties": False,
@@ -37,7 +48,12 @@ TOOL_DEFINITIONS: dict[str, dict[str, Any]] = {
         "description": "Descreve colunas, tipos e estatisticas basicas de um CSV.",
         "inputSchema": {
             "type": "object",
-            "properties": {"file": {"type": "string", "description": "Arquivo CSV relativo em reports/."}},
+            "properties": {
+                "file": {
+                    "type": "string",
+                    "description": "Arquivo CSV relativo em reports/.",
+                }
+            },
             "required": ["file"],
             "additionalProperties": False,
         },
@@ -47,7 +63,10 @@ TOOL_DEFINITIONS: dict[str, dict[str, Any]] = {
         "inputSchema": {
             "type": "object",
             "properties": {
-                "file": {"type": "string", "description": "Arquivo CSV relativo em reports/."},
+                "file": {
+                    "type": "string",
+                    "description": "Arquivo CSV relativo em reports/.",
+                },
                 "columns": {
                     "description": "Colunas esperadas como lista ou texto separado por virgula.",
                     "oneOf": [
@@ -62,7 +81,11 @@ TOOL_DEFINITIONS: dict[str, dict[str, Any]] = {
     },
     "csv_get_metrics_summary": {
         "description": "Resume os principais CSVs de metricas em reports/.",
-        "inputSchema": {"type": "object", "properties": {}, "additionalProperties": False},
+        "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": False,
+        },
     },
     "csv_search_value": {
         "description": "Busca termo textual simples nos CSVs de reports/.",
@@ -70,7 +93,11 @@ TOOL_DEFINITIONS: dict[str, dict[str, Any]] = {
             "type": "object",
             "properties": {
                 "query": {"type": "string", "description": "Termo de busca."},
-                "max_results": {"type": "integer", "description": "Limite de resultados.", "default": 20},
+                "max_results": {
+                    "type": "integer",
+                    "description": "Limite de resultados.",
+                    "default": 20,
+                },
             },
             "required": ["query"],
             "additionalProperties": False,
@@ -78,25 +105,43 @@ TOOL_DEFINITIONS: dict[str, dict[str, Any]] = {
     },
     "csv_compare_metrics_files": {
         "description": "Compara arquivos de metricas e consolida dimensoes basicas.",
-        "inputSchema": {"type": "object", "properties": {}, "additionalProperties": False},
+        "inputSchema": {
+            "type": "object",
+            "properties": {},
+            "additionalProperties": False,
+        },
     },
 }
 
 
 def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="MCP CSV read-only para arquivos analiticos em reports.")
-    parser.add_argument("--mcp-stdio", action="store_true", help="Inicia explicitamente o servidor MCP stdio.")
-    parser.add_argument("--list-tools", action="store_true", help="Lista ferramentas disponiveis.")
+    parser = argparse.ArgumentParser(
+        description="MCP CSV read-only para arquivos analiticos em reports."
+    )
+    parser.add_argument(
+        "--mcp-stdio",
+        action="store_true",
+        help="Inicia explicitamente o servidor MCP stdio.",
+    )
+    parser.add_argument(
+        "--list-tools", action="store_true", help="Lista ferramentas disponiveis."
+    )
     parser.add_argument("--tool", choices=sorted(TOOLS), help="Ferramenta a executar.")
     parser.add_argument("--file", help="Arquivo CSV relativo em reports.")
     parser.add_argument("--columns", help="Colunas esperadas separadas por virgula.")
     parser.add_argument("--query", help="Termo para busca textual.")
-    parser.add_argument("--rows", type=int, default=5, help="Quantidade de linhas para preview.")
+    parser.add_argument(
+        "--rows", type=int, default=5, help="Quantidade de linhas para preview."
+    )
     return parser
 
 
 def _tool_arguments(tool_name: str, arguments: dict[str, Any]) -> dict[str, Any]:
-    if tool_name in {"csv_list_reports", "csv_get_metrics_summary", "csv_compare_metrics_files"}:
+    if tool_name in {
+        "csv_list_reports",
+        "csv_get_metrics_summary",
+        "csv_compare_metrics_files",
+    }:
         return {}
     if tool_name == "csv_preview_file":
         return {"file_name": arguments["file"], "rows": arguments.get("rows", 5)}
@@ -105,11 +150,16 @@ def _tool_arguments(tool_name: str, arguments: dict[str, Any]) -> dict[str, Any]
     if tool_name == "csv_validate_columns":
         return {"file_name": arguments["file"], "columns": arguments["columns"]}
     if tool_name == "csv_search_value":
-        return {"query": arguments["query"], "max_results": arguments.get("max_results", 20)}
+        return {
+            "query": arguments["query"],
+            "max_results": arguments.get("max_results", 20),
+        }
     raise ValueError(f"Ferramenta desconhecida: {tool_name}")
 
 
-def call_tool(tool_name: str, arguments: dict[str, Any] | None = None) -> dict[str, Any]:
+def call_tool(
+    tool_name: str, arguments: dict[str, Any] | None = None
+) -> dict[str, Any]:
     """Executa uma ferramenta do MCP CSV de forma reutilizavel por CLI e stdio."""
     if tool_name not in TOOLS:
         raise ValueError(f"Ferramenta desconhecida: {tool_name}")
@@ -134,7 +184,9 @@ def run_tool(args: argparse.Namespace) -> dict:
         return call_tool(args.tool, {"file": args.file})
     if args.tool == "csv_validate_columns":
         if not args.file or not args.columns:
-            raise ValueError("--file e --columns sao obrigatorios para csv_validate_columns.")
+            raise ValueError(
+                "--file e --columns sao obrigatorios para csv_validate_columns."
+            )
         return call_tool(args.tool, {"file": args.file, "columns": args.columns})
     if args.tool == "csv_search_value":
         if not args.query:
@@ -159,7 +211,11 @@ def _jsonrpc_result(message_id: Any, result: dict[str, Any]) -> dict[str, Any]:
 
 
 def _jsonrpc_error(message_id: Any, code: int, message: str) -> dict[str, Any]:
-    return {"jsonrpc": "2.0", "id": message_id, "error": {"code": code, "message": message}}
+    return {
+        "jsonrpc": "2.0",
+        "id": message_id,
+        "error": {"code": code, "message": message},
+    }
 
 
 def handle_mcp_message(message: dict[str, Any]) -> dict[str, Any] | None:
@@ -190,7 +246,9 @@ def handle_mcp_message(message: dict[str, Any]) -> dict[str, Any] | None:
                     "content": [
                         {
                             "type": "text",
-                            "text": json.dumps(payload, ensure_ascii=False, indent=2, default=str),
+                            "text": json.dumps(
+                                payload, ensure_ascii=False, indent=2, default=str
+                            ),
                         }
                     ],
                     "isError": False,
@@ -235,7 +293,10 @@ def run_cli(args: argparse.Namespace) -> int:
         print(json.dumps(payload, ensure_ascii=False, indent=2, default=str))
         return 0
     except Exception as exc:
-        print(json.dumps({"error": str(exc)}, ensure_ascii=False, indent=2), file=sys.stderr)
+        print(
+            json.dumps({"error": str(exc)}, ensure_ascii=False, indent=2),
+            file=sys.stderr,
+        )
         return 1
 
 

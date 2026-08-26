@@ -9,7 +9,7 @@ if str(PROJECT_DIR) not in sys.path:
 
 import shutil
 
-from src.config import (
+from a_configs.config import (
     BASE_DIR,
     BRONZE_DIR,
     FIGURES_DIR,

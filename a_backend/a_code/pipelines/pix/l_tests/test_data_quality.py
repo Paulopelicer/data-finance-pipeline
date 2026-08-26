@@ -1,5 +1,5 @@
 import pytest
-from src.data_quality import ensure_columns
+from d_processing.data_quality import ensure_columns
 
 
 class DummyDf:

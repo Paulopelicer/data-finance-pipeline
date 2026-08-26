@@ -18,8 +18,8 @@ _SUCCESS
 *.egg-info/
 dist/
 build/
-reports/figures/*.png
-data/bronze/
-data/silver/
-data/gold/
+m_reports/figures/*.png
+g_data/a_bronze/
+g_data/b_silver/
+g_data/c_gold/
 presentation_backup/

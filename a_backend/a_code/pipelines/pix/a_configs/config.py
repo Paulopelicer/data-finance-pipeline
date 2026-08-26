@@ -4,20 +4,20 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 
-DATA_DIR = BASE_DIR / "data"
+DATA_DIR = BASE_DIR / "g_data"
 INPUT_DIR = DATA_DIR / "input"
-BRONZE_DIR = DATA_DIR / "bronze"
-SILVER_DIR = DATA_DIR / "silver"
-GOLD_DIR = DATA_DIR / "gold"
+BRONZE_DIR = DATA_DIR / "a_bronze"
+SILVER_DIR = DATA_DIR / "b_silver"
+GOLD_DIR = DATA_DIR / "c_gold"
 
-REPORTS_DIR = BASE_DIR / "reports"
+REPORTS_DIR = BASE_DIR / "m_reports"
 FIGURES_DIR = REPORTS_DIR / "figures"
-DOCS_DIR = BASE_DIR / "docs"
-NOTEBOOKS_DIR = BASE_DIR / "notebooks"
-SCRIPTS_DIR = BASE_DIR / "scripts"
-TESTS_DIR = BASE_DIR / "tests"
+DOCS_DIR = BASE_DIR / "n_docs"
+NOTEBOOKS_DIR = BASE_DIR / "i_notebooks"
+SCRIPTS_DIR = BASE_DIR / "j_scripts"
+TESTS_DIR = BASE_DIR / "l_tests"
 PIPELINE_RUNS_DIR = BASE_DIR / ".pipeline_runs"
-AGENTS_SKILLS_DIR = BASE_DIR / "agents_skills"
+AGENTS_SKILLS_DIR = BASE_DIR / "k_agents_skills"
 
 PIX_RAW_DIR = BRONZE_DIR / "pix_raw"
 PIX_RAW_SAMPLE_CSV = BRONZE_DIR / "pix_raw_sample.csv"

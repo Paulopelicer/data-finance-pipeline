@@ -1,4 +1,4 @@
-from src.config import BASE_DIR, DATA_DIR, create_project_directories
+from a_configs.config import BASE_DIR, DATA_DIR, create_project_directories
 
 
 def test_base_dir_exists():

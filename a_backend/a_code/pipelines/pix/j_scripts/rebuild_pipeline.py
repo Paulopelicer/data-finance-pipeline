@@ -12,9 +12,15 @@ PROJECT_DIR = Path(__file__).resolve().parents[1]
 if str(PROJECT_DIR) not in sys.path:
     sys.path.insert(0, str(PROJECT_DIR))
 
-from src.config import BASE_DIR, FIGURES_DIR, NOTEBOOKS_DIR, PIPELINE_RUNS_DIR, create_project_directories
-from src.spark_session import sanitize_spark_home
-from scripts.clean_outputs import main as clean_outputs
+from a_configs.config import (
+    BASE_DIR,
+    FIGURES_DIR,
+    NOTEBOOKS_DIR,
+    PIPELINE_RUNS_DIR,
+    create_project_directories,
+)
+from a_configs.spark_session import sanitize_spark_home
+from j_scripts.clean_outputs import main as clean_outputs
 
 NOTEBOOKS = [
     "01_bronze_ingestion_pix.ipynb",
@@ -31,16 +37,16 @@ NOTEBOOKS = [
 ]
 
 REQUIRED_OUTPUTS = [
-    BASE_DIR / "data" / "bronze" / "pix_raw" / "_SUCCESS",
-    BASE_DIR / "data" / "silver" / "pix_clean" / "_SUCCESS",
-    BASE_DIR / "data" / "gold" / "pix_monthly_indicators" / "_SUCCESS",
-    BASE_DIR / "data" / "gold" / "pix_eda_summary" / "_SUCCESS",
-    BASE_DIR / "data" / "gold" / "pix_ml_features" / "_SUCCESS",
-    BASE_DIR / "data" / "gold" / "pix_selected_features" / "_SUCCESS",
-    BASE_DIR / "data" / "gold" / "pix_regression_predictions" / "_SUCCESS",
-    BASE_DIR / "data" / "gold" / "pix_classification_predictions" / "_SUCCESS",
-    BASE_DIR / "data" / "gold" / "pix_fee_savings_estimation" / "_SUCCESS",
-    BASE_DIR / "data" / "gold" / "pix_transfer_savings_estimation" / "_SUCCESS",
+    BASE_DIR / "g_data" / "a_bronze" / "pix_raw" / "_SUCCESS",
+    BASE_DIR / "g_data" / "b_silver" / "pix_clean" / "_SUCCESS",
+    BASE_DIR / "g_data" / "c_gold" / "pix_monthly_indicators" / "_SUCCESS",
+    BASE_DIR / "g_data" / "c_gold" / "pix_eda_summary" / "_SUCCESS",
+    BASE_DIR / "g_data" / "c_gold" / "pix_ml_features" / "_SUCCESS",
+    BASE_DIR / "g_data" / "c_gold" / "pix_selected_features" / "_SUCCESS",
+    BASE_DIR / "g_data" / "c_gold" / "pix_regression_predictions" / "_SUCCESS",
+    BASE_DIR / "g_data" / "c_gold" / "pix_classification_predictions" / "_SUCCESS",
+    BASE_DIR / "g_data" / "c_gold" / "pix_fee_savings_estimation" / "_SUCCESS",
+    BASE_DIR / "g_data" / "c_gold" / "pix_transfer_savings_estimation" / "_SUCCESS",
     FIGURES_DIR / "01_pix_monthly_transactions.png",
     FIGURES_DIR / "02_pix_monthly_value.png",
     FIGURES_DIR / "03_pix_average_ticket.png",
@@ -51,10 +57,10 @@ REQUIRED_OUTPUTS = [
     FIGURES_DIR / "08_pix_eda_distribution_value.png",
     FIGURES_DIR / "09_pix_eda_distribution_transactions.png",
     FIGURES_DIR / "10_pix_feature_correlation_heatmap.png",
-    BASE_DIR / "reports" / "regression_metrics.csv",
-    BASE_DIR / "reports" / "classification_metrics.csv",
-    BASE_DIR / "reports" / "model_metrics_summary.csv",
-    BASE_DIR / "reports" / "business_metrics_summary.csv",
+    BASE_DIR / "m_reports" / "regression_metrics.csv",
+    BASE_DIR / "m_reports" / "classification_metrics.csv",
+    BASE_DIR / "m_reports" / "model_metrics_summary.csv",
+    BASE_DIR / "m_reports" / "business_metrics_summary.csv",
 ]
 
 

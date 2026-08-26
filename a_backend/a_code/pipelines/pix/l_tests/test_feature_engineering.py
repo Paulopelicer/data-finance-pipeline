@@ -1,4 +1,9 @@
-from src.feature_engineering import calculate_card_savings, calculate_growth_percent, calculate_ticket_medio, calculate_transfer_savings
+from d_processing.feature_engineering import (
+    calculate_card_savings,
+    calculate_growth_percent,
+    calculate_ticket_medio,
+    calculate_transfer_savings,
+)
 
 
 def test_ticket_medio():
