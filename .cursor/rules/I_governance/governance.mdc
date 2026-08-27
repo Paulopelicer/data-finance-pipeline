@@ -1,0 +1,11 @@
+---
+description: Documentation and governance rules
+globs: e_doc/**
+alwaysApply: false
+---
+
+# I - Governance
+
+- Keep documentation aligned with implementation.
+- Always surface risks and pending decisions.
+- Maintain traceability between PRDs and code.

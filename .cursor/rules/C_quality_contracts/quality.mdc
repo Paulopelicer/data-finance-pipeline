@@ -1,0 +1,11 @@
+---
+description: Data quality and contract validation rules
+globs: a_backend/a_code/common/data_quality.py, a_backend/a_code/pipelines/**/e_validation/**
+alwaysApply: false
+---
+
+# C - Quality & Contracts
+
+- Never assume quality without evidence.
+- Validate schema, nulls, and business rules before publishing data.
+- Report failures with impact and origin.

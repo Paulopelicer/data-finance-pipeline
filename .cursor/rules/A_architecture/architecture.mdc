@@ -1,0 +1,12 @@
+---
+description: Architecture rules for the Data Finance pipeline
+globs: a_backend/**
+alwaysApply: false
+---
+
+# A - Architecture
+
+- Preserve Bronze/Silver/Gold layer boundaries.
+- Validate contracts and dependencies before structural changes.
+- Document assumptions and risks.
+- No hardcoded local paths or secrets.

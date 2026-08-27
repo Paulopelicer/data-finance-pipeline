@@ -1,0 +1,11 @@
+---
+description: Airflow orchestration rules
+globs: b_middleware/airflow/**
+alwaysApply: false
+---
+
+# E - Orchestration
+
+- Keep DAGs readable with explicit dependencies.
+- Prioritize observability over silent failure.
+- Document retries, sensors, and scheduling assumptions.

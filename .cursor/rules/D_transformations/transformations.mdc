@@ -1,0 +1,11 @@
+---
+description: Silver/Gold transformation rules
+globs: a_backend/a_code/pipelines/**/d_processing/**
+alwaysApply: false
+---
+
+# D - Transformations
+
+- Keep metric names and semantics consistent across layers.
+- Document granularity, aggregation logic, and assumptions.
+- Validate indicators before publishing to Gold.

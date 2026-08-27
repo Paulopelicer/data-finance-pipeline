@@ -1,0 +1,12 @@
+---
+description: B3 market data ingestion rules
+globs: a_backend/a_code/pipelines/b3/c_ingestion/**
+alwaysApply: false
+---
+
+# B - Market Data
+
+- Preserve existing ingestion rules and contracts.
+- Validate ticker, schema, and timestamps before normalizing.
+- Keep financial data traceable to its source.
+- No hardcoded tokens or credentials.

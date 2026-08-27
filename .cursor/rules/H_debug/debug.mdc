@@ -1,0 +1,11 @@
+---
+description: Debugging and reliability rules
+globs: "**/*.py"
+alwaysApply: false
+---
+
+# H - Debug & Reliability
+
+- Investigate root cause before proposing a fix.
+- Test one hypothesis at a time.
+- Verify the fix with evidence, not assumption.

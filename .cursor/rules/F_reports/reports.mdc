@@ -1,0 +1,11 @@
+---
+description: Report generation rules
+globs: a_backend/a_code/pipelines/**/d_report/**, c_reports/**
+alwaysApply: false
+---
+
+# F - Reports
+
+- Validate the data source before reporting a number.
+- Use clear, executive-level language.
+- Explicit context on data limitations.

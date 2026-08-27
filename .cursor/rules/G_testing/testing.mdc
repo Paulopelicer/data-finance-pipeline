@@ -1,0 +1,11 @@
+---
+description: Testing and validation rules
+globs: d_test/**
+alwaysApply: false
+---
+
+# G - Testing
+
+- No success claims without a fresh passing run.
+- Test real behavior, avoid mock-only assertions.
+- Cover regression cases for changed logic.
