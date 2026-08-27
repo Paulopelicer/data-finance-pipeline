@@ -1,5 +1,5 @@
 ---
-name: d-transformations
+name: d_transformations
 description: 'Use when building or reviewing Silver/Gold transformations, aggregations, or financial indicators. Trigger phrases: Silver, Gold, transformation, aggregation, indicator, metric calculation.'
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: g-testing
+name: g_testing
 description: 'Use when creating or reviewing tests, regression coverage, or validation for the Data Finance pipeline. Trigger phrases: test, pytest, regression, coverage, validation.'
 ---
 

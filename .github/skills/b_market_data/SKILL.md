@@ -1,5 +1,5 @@
 ---
-name: b-market-data
+name: b_market_data
 description: 'Use when ingesting, normalizing, or validating B3 market data such as tickers, OHLCV prices, or historical series. Trigger phrases: B3, ticker, prices, Yahoo Finance, BRAPI, OHLCV, market data ingestion.'
 ---
 

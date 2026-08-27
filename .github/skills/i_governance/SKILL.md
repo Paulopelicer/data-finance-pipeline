@@ -1,5 +1,5 @@
 ---
-name: i-governance
+name: i_governance
 description: 'Use when updating documentation, PRDs, governance rules, or traceability records for the Data Finance project. Trigger phrases: documentation, PRD, governance, traceability, audit.'
 ---
 

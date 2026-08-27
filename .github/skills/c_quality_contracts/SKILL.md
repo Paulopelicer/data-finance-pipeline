@@ -1,5 +1,5 @@
 ---
-name: c-quality-contracts
+name: c_quality_contracts
 description: 'Use when validating data quality, schema contracts, nulls, or business rules across pipeline layers. Trigger phrases: data quality, schema validation, contracts, nulls, consistency check.'
 ---
 

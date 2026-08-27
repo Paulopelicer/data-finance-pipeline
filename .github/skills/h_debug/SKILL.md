@@ -1,5 +1,5 @@
 ---
-name: h-debug
+name: h_debug
 description: 'Use when diagnosing pipeline failures, incidents, regressions, or performance issues. Trigger phrases: debug, incident, failure, broken pipeline, performance, root cause.'
 ---
 

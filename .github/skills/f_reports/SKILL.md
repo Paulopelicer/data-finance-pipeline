@@ -1,5 +1,5 @@
 ---
-name: f-reports
+name: f_reports
 description: 'Use when producing financial reports, PDFs, dashboards, or executive summaries from Gold data. Trigger phrases: report, PDF, dashboard, KPI, executive summary, BI.'
 ---
 

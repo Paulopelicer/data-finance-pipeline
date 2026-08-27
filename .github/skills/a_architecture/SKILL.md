@@ -1,5 +1,5 @@
 ---
-name: a-architecture
+name: a_architecture
 description: 'Use when designing, reviewing, or documenting the Data Finance pipeline architecture, layer boundaries, or data contracts. Trigger phrases: architecture, pipeline design, medallion layers, contracts, new data source.'
 ---
 

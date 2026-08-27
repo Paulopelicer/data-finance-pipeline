@@ -1,5 +1,5 @@
 ---
-name: e-orchestration
+name: e_orchestration
 description: 'Use when creating or reviewing Airflow DAGs, task dependencies, scheduling, retries, or orchestration. Trigger phrases: Airflow, DAG, orchestration, scheduling, retries, sensors.'
 ---
 
