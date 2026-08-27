@@ -18,6 +18,22 @@ PARTITION_GLOB = "trade_date_*"
 logger = get_logger(__name__)
 
 
+def _latest_partition_files(paths: list[Path]) -> list[Path]:
+    """Return only the newest partition file for each trade_date key."""
+    latest_by_date: dict[str, Path] = {}
+    for path in paths:
+        partition = path.parent.name
+        # partition format: trade_date_YYMMDD_HHMM
+        parts = partition.split("_")
+        if len(parts) < 4:
+            continue
+        date_key = parts[2]
+        current = latest_by_date.get(date_key)
+        if current is None or partition > current.parent.name:
+            latest_by_date[date_key] = path
+    return sorted(latest_by_date.values())
+
+
 def write_bronze(df: pl.DataFrame, source: str = "yahoo_finance") -> Path:
     """
     Persist raw ingestion data to the Bronze layer.
@@ -111,9 +127,9 @@ def read_bronze(source: str = "yahoo_finance", trade_date: str | None = None) ->
         mm = parts[1]
         dd = parts[2]
         prefix = f"trade_date_{yy}{mm}{dd}_"
-        paths = sorted(base.glob(f"{prefix}*/data.parquet"))
+        paths = _latest_partition_files(sorted(base.glob(f"{prefix}*/data.parquet")))
     else:
-        paths = sorted(base.glob("trade_date_*/data.parquet"))
+        paths = _latest_partition_files(sorted(base.glob("trade_date_*/data.parquet")))
 
     if not paths:
         logger.warning("No Bronze files found", extra={"base": str(base), "trade_date": trade_date})

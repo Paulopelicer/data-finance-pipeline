@@ -68,6 +68,8 @@ def build_env(rows: int | None = None) -> dict[str, str]:
     sanitize_spark_home()
     env = os.environ.copy()
     env.setdefault("MPLCONFIGDIR", "/tmp/matplotlib-pix")
+    pythonpath = env.get("PYTHONPATH")
+    env["PYTHONPATH"] = str(PROJECT_DIR) if not pythonpath else f"{PROJECT_DIR}{os.pathsep}{pythonpath}"
     if rows:
         env["PIX_SAMPLE_ROWS"] = str(rows)
     spark_home = env.get("SPARK_HOME")
@@ -91,9 +93,9 @@ def execute_notebook(notebook_name: str, rows: int | None = None) -> None:
         "--output-dir",
         str(PIPELINE_RUNS_DIR),
         "--ExecutePreprocessor.timeout=900",
-        notebook_name,
+        str(NOTEBOOKS_DIR / notebook_name),
     ]
-    subprocess.run(command, cwd=NOTEBOOKS_DIR, env=build_env(rows), check=True)
+    subprocess.run(command, cwd=PROJECT_DIR, env=build_env(rows), check=True)
 
 
 def validate_required_outputs() -> None:

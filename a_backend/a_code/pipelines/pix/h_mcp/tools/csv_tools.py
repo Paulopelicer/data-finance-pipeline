@@ -31,7 +31,7 @@ def _safe_csv_path(file_name: str | Path) -> Path:
 
     candidate = (
         (PROJECT_DIR / raw).resolve()
-        if raw.parts and raw.parts[0] == "reports"
+        if raw.parts and raw.parts[0] in {"m_reports", "reports"}
         else (REPORTS_DIR / raw).resolve()
     )
     reports_root = REPORTS_DIR.resolve()
@@ -70,7 +70,7 @@ def csv_list_reports() -> dict[str, Any]:
                     "approx_lines": _approx_line_count(path),
                 }
             )
-    return {"reports_dir": "reports", "csv_files": files, "count": len(files)}
+    return {"reports_dir": "m_reports", "csv_files": files, "count": len(files)}
 
 
 def csv_preview_file(file_name: str, rows: int = 5) -> dict[str, Any]:
